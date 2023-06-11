@@ -39,18 +39,15 @@ public class LetterAndCharacterCount {
         }
 
         // Display the results
-        System.out.println("Letter count: " + letterCount);
-        System.out.println("Word count: " + wordCount);
-        for (char c = 'a'; c <= 'z'; c++) {
-            int count = 0;
-            for (int i = 0; i < content.length(); i++) {
-                if (content.charAt(i) == c) {
-                    count++;
-                }
-            }
-            if (count > 0) {
-                System.out.println(c + ": " + count);
+        System.out.println(wordCount);
+        Map<Character, Integer> charCount = new HashMap<>();
+        for (int i = 0; i < content.length(); i++) {
+            char c = content.toLowerCase().charAt(i);
+            if (Character.isLetter(c)) {
+                charCount.put(c, charCount.getOrDefault(c, 0) + 1);
             }
         }
+        System.out.println(charCount);
     }
 }
+
