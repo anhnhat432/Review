@@ -44,16 +44,16 @@ public class Validation {
     }
 
     public static boolean checkInputYN() {
-        System.out.print("Bạn có muốn thay thế (C/K)? ");
+        System.out.print("Bạn có muốn thay thế (Y/N)? ");
         while (true) {
             String result = checkInputString();
-            if (result.equalsIgnoreCase("C")) {
+            if (result.equalsIgnoreCase("Y")) {
                 return true;
             }
-            if (result.equalsIgnoreCase("K")) {
+            if (result.equalsIgnoreCase("N")) {
                 return false;
             }
-            System.err.println("Vui lòng nhập C hoặc K.");
+            System.err.println("Vui lòng nhập Y hoặc N.");
             System.out.print("Nhập lại: ");
         }
     }
