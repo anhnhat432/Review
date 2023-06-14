@@ -9,7 +9,6 @@ package P0052DONE;
  *
  * @author FPT
  */
-
 public class Country extends EastAsiaCountries implements Comparable<Country> {
 
     private String countryTerrain;
@@ -36,7 +35,8 @@ public class Country extends EastAsiaCountries implements Comparable<Country> {
     }
 
     @Override
-    public int compareTo(Country t) {
-        return this.getCountryName().compareTo(t.getCountryName());
-    }
+public int compareTo(Country t) {
+    return Integer.compare(this.getCountryName().length(), t.getCountryName().length());
+}
+
 }

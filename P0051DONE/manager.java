@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package P0051;
+package P0051DONE;
 
 import java.util.Scanner;
 
@@ -69,33 +69,33 @@ public class manager {
         double memory;
         System.out.println("----- Normal Calculator -----");
         
-       System.out.println("Enter number: ");
+       System.out.print("Enter number: ");
        memory = getDoubleInput();
         while (true) {
             System.out.print("Enter operator: "); 
             String operator = getOperatorInput();
             if (operator.equals("+")) {
-                System.out.println("Enter number: ");
+                System.out.print("Enter number: ");
                 memory += getDoubleInput();
                 System.out.println("Memory: " + memory);
             } else if (operator.equals("-")) {
-                System.out.println("Enter number: ");
+                System.out.print("Enter number: ");
                 memory -= getDoubleInput();
                 System.out.println("Memory: " + memory);
             } else if (operator.equals("*")) {
-                System.out.println("Enter number: ");
+                System.out.print("Enter number: ");
                 memory *= getDoubleInput();
                 System.out.println("Memory: " + memory);
             } else if (operator.equals("/")) {
-                System.out.println("Enter number: ");
+                System.out.print("Enter number: ");
                 memory /= getDoubleInput();
                 System.out.println("Memory: " + memory);
             } else if (operator.equals("^")) {
-                System.out.println("Enter number: ");
+                System.out.print("Enter number: ");
                 memory = Math.pow(memory, getDoubleInput());
                 System.out.println("Memory: " + memory);
             } else if (operator.equals("=")) {
-                System.out.println("Enter number: ");
+                System.out.print("Enter number: ");
                 System.out.println("Result: " + memory);
                 break;
             }

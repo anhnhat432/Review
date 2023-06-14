@@ -26,12 +26,12 @@ public class ManageEastAsiaCountries {
     }
 
     public int menu() {
-        System.out.println("1. Input the information of 11 countries in East Asia");
-        System.out.println("2. Display the information of country you've just input");
-        System.out.println("3. Search the information of country by user-entered name");
-        System.out.println("4. Display the information of countries sorted name in ascending");
-        System.out.println("5. Exit");
-        System.out.print("Enter your choice: ");
+        System.out.println("1. Nhập thông tin về 11 quốc gia ở Đông Á");
+        System.out.println("2. Hiển thị thông tin về quốc gia vừa nhập");
+        System.out.println("3. Tìm kiếm thông tin quốc gia theo tên");
+        System.out.println("4. Hiển thị thông tin quốc gia được sắp xếp theo tên tăng dần");
+        System.out.println("5. Thoát");
+        System.out.print("Nhập lựa chọn của bạn: ");
         int choice = checkInputIntLimit(1, 5);
         return choice;
     }
@@ -45,8 +45,8 @@ public class ManageEastAsiaCountries {
                 }
                 return result;
             } catch (NumberFormatException e) {
-                System.err.println("Please input number in range [" + min + ", " + max + "]");
-                System.out.print("Enter again: ");
+                System.err.println("Vui lòng nhập số trong khoảng [" + min + ", " + max + "]");
+                System.out.print("Nhập lại: ");
             }
         }
     }
@@ -55,8 +55,8 @@ public class ManageEastAsiaCountries {
         while (true) {
             String result = in.nextLine().trim();
             if (result.isEmpty()) {
-                System.err.println("Not empty");
-                System.out.print("Enter again: ");
+                System.err.println("Không được để trống");
+                System.out.print("Nhập lại: ");
             } else {
                 return result;
             }
@@ -69,31 +69,31 @@ public class ManageEastAsiaCountries {
                 double result = Double.parseDouble(in.nextLine());
                 return result;
             } catch (NumberFormatException e) {
-                System.err.println("Please input a double value");
-                System.out.print("Enter again: ");
+                System.err.println("Vui lòng nhập giá trị là số thực");
+                System.out.print("Nhập lại: ");
             }
         }
     }
 
     public void inputCountry() {
-        System.out.print("Enter country code: ");
+        System.out.print("Nhập mã quấc gia: ");
         String countryCode = checkInputString();
         if (!checkCountryExist(countryCode)) {
-            System.err.println("Country code already exists.");
+            System.err.println("Mã quấc gia đã tồn tại.");
             return;
         }
-        System.out.print("Enter country name: ");
+        System.out.print("Nhập tên quấc gia: ");
         String countryName = checkInputString();
-        System.out.print("Enter total area: ");
+        System.out.print("Nhập diện tích tổng cộng: ");
         double countryArea = checkInputDouble();
-        System.out.print("Enter country terrain: ");
+        System.out.print("Nhập địa hình quấc gia: ");
         String countryTerrain = checkInputString();
         countryList.add(new Country(countryCode, countryName, countryArea, countryTerrain));
-        System.out.println("Add successful.");
+        System.out.println("thêm thành công.");
     }
 
     public void printCountry() {
-        System.out.printf("%-10s%-25s%-20s%-25s\n", "Code", "Name", "Area", "Terrain");
+        System.out.printf("%-10s%-25s%-20s%-25s\n", "Mã", "Tên", "Diện tích", "Địa hình");
         for (Country country : countryList) {
             country.display();
         }
@@ -101,16 +101,16 @@ public class ManageEastAsiaCountries {
 
     public void printCountrySorted() {
         Collections.sort(countryList);
-        System.out.printf("%-10s%-25s%-20s%-25s\n", "Code", "Name", "Area", "Terrain");
+        System.out.printf("%-10s%-25s%-20s%-25s\n", "Mã", "Tên", "Diện tích", "Địa hình");
         for (Country country : countryList) {
             country.display();
         }
     }
 
     public void searchByName() {
-        System.out.print("Enter the country name to search for: ");
+        System.out.print("Nhập tên quốc gia để tìm kiếm: ");
         String countryName = checkInputString();
-        System.out.printf("%-10s%-25s%-20s%-25s\n", "Code", "Name", "Area", "Terrain");
+        System.out.printf("%-10s%-25s%-20s%-25s\n", "Mã", "Tên", "Diện tích", "Địa hình");
         for (Country country : countryList) {
             if (country.getCountryName().equalsIgnoreCase(countryName)) {
                 country.display();
