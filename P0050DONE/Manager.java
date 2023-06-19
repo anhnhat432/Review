@@ -137,104 +137,103 @@ public class Manager {
     //allow user calculate Quadratic Equation
     public static void quadraticEquation() {
 
-    System.out.print("Enter A: ");
-    double a = checkInputDouble();
-    System.out.print("Enter B: ");
-    double b = checkInputDouble();
-    System.out.print("Enter C: ");
-    double c = checkInputDouble();
-    double x1 = 0, x2 = 0;
-    
-    if (a == 0) {
-        if (b == 0) {
-            if (c == 0) {
-                System.out.println("The equation has infinitely many solutions");
+        System.out.print("Enter A: ");
+        double a = checkInputDouble();
+        System.out.print("Enter B: ");
+        double b = checkInputDouble();
+        System.out.print("Enter C: ");
+        double c = checkInputDouble();
+        double x1 = 0, x2 = 0;
+
+        if (a == 0) {
+            if (b == 0) {
+                if (c == 0) {
+                    System.out.println("The equation has infinitely many solutions");
+                } else {
+                    System.out.println("The equation has no solution");
+                }
             } else {
-                System.out.println("The equation has no solution");
+                x1 = -c / b;
+                System.out.println("The equation is linear and its unique solution is " + x1);
             }
         } else {
-            x1 = -c / b;
-            System.out.println("The equation is linear and its unique solution is " + x1);
-        }
-    } else {
-        double delta = b * b - 4 * a * c;
+            double delta = b * b - 4 * a * c;
 
-        if (delta < 0) {
-            System.out.println("The equation has no real solutions");
-        } else if (delta == 0) {
-            x1 = (-b) / (2 * a);
-            System.out.println("The equation has a unique solution: x = " + x1);
-        } else {
-            x1 = (-b + Math.sqrt(delta)) / (2 * a);
-            x2 = (-b - Math.sqrt(delta)) / (2 * a);
-            System.out.println("The equation has two distinct solutions:");
-            System.out.println("x1 = " + x1);
-            System.out.println("x2 = " + x2);
+            if (delta < 0) {
+                System.out.println("The equation has no real solutions");
+            } else if (delta == 0) {
+                x1 = (-b) / (2 * a);
+                System.out.println("The equation has a unique solution: x = " + x1);
+            } else {
+                x1 = (-b + Math.sqrt(delta)) / (2 * a);
+                x2 = (-b - Math.sqrt(delta)) / (2 * a);
+                System.out.println("The equation has two distinct solutions:");
+                System.out.println("x1 = " + x1);
+                System.out.println("x2 = " + x2);
+            }
         }
-    }
 
-    // Check properties of coefficients and solutions
-    System.out.print("Odd numbers: ");
-    if (checkOdd(a)) {
-        System.out.print(a + " ");
-    }
-    if (checkOdd(b)) {
-        System.out.print(b + " ");
-    }
-    if (checkOdd(c)) {
-        System.out.print(c + " ");
-    }
+        // Check properties of coefficients and solutions
+        System.out.print("Odd numbers: ");
+        if (checkOdd(a)) {
+            System.out.print(a + " ");
+        }
+        if (checkOdd(b)) {
+            System.out.print(b + " ");
+        }
+        if (checkOdd(c)) {
+            System.out.print(c + " ");
+        }
         int delta = 0;
-    if (delta >= 0) {
-        if (checkOdd(x1)) {
-            System.out.print(x1 + " ");
+        if (delta >= 0) {
+            if (checkOdd(x1)) {
+                System.out.print(x1 + " ");
+            }
+            if (checkOdd(x2)) {
+                System.out.print(x2 + " ");
+            }
         }
-        if (checkOdd(x2)) {
-            System.out.print(x2 + " ");
-        }
-    }
 
-    System.out.println();
-    System.out.print("Even numbers: ");
-    if (checkEven(a)) {
-        System.out.print(a + " ");
-    }
-    if (checkEven(b)) {
-        System.out.print(b + " ");
-    }
-    if (checkEven(c)) {
-        System.out.print(c + " ");
-    }
-    if (delta >= 0) {
-        if (checkEven(x1)) {
-            System.out.print(x1 + " ");
+        System.out.println();
+        System.out.print("Even numbers: ");
+        if (checkEven(a)) {
+            System.out.print(a + " ");
         }
-        if (checkEven(x2)) {
-            System.out.print(x2 + " ");
+        if (checkEven(b)) {
+            System.out.print(b + " ");
         }
-    }
+        if (checkEven(c)) {
+            System.out.print(c + " ");
+        }
+        if (delta >= 0) {
+            if (checkEven(x1)) {
+                System.out.print(x1 + " ");
+            }
+            if (checkEven(x2)) {
+                System.out.print(x2 + " ");
+            }
+        }
 
-    System.out.println();
-    System.out.print("Perfect squares: ");
-    if (checkSquareNumber(a)) {
-        System.out.print(a + " ");
-    }
-    if (checkSquareNumber(b)) {
-        System.out.print(b + " ");
-    }
-    if (checkSquareNumber(c)) {
-        System.out.print(c + " ");
-    }
-    if (delta >= 0) {
-        if (checkSquareNumber(x1)) {
-            System.out.print(x1 + " ");
+        System.out.println();
+        System.out.print("Perfect squares: ");
+        if (checkSquareNumber(a)) {
+            System.out.print(a + " ");
         }
-        if (checkSquareNumber(x2)) {
-            System.out.print(x2 + " ");
+        if (checkSquareNumber(b)) {
+            System.out.print(b + " ");
         }
-    }
+        if (checkSquareNumber(c)) {
+            System.out.print(c + " ");
+        }
+        if (delta >= 0) {
+            if (checkSquareNumber(x1)) {
+                System.out.print(x1 + " ");
+            }
+            if (checkSquareNumber(x2)) {
+                System.out.print(x2 + " ");
+            }
+        }
 
-    System.out.println();
+        System.out.println();
+    }
 }
-}
-
