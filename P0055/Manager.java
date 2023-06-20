@@ -1,15 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package P0055;
-
-/**
- *
- * @author FPT
- */
-
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,8 +7,8 @@ public class Manager {
     private ArrayList<Doctor> doctors;
     private Scanner scanner;
 
-    public Manager() {
-        doctors = new ArrayList<>();
+    public Manager(ArrayList<Doctor> doctors) {
+        this.doctors = doctors;
         scanner = new Scanner(System.in);
     }
 
@@ -117,37 +106,34 @@ public class Manager {
         System.out.println("Doctor deleted successfully.");
     }
 
-    private void searchDoctor() {
-        System.out.print("Enter name: ");
-        String name = scanner.nextLine();
+private void searchDoctor() {
+    System.out.print("Enter name : ");
+    String name = scanner.nextLine();
 
-        ArrayList<Doctor> foundDoctors = new ArrayList<>();
-        for (Doctor doctor : doctors) {
-            if (doctor.getName().contains(name)) {
-                foundDoctors.add(doctor);
-            }
-        }
-
-        if (foundDoctors.isEmpty()) {
-            System.out.println("No doctors found with the given name.");
-        } else {
-            System.out.println("Doctors found with the given name:");
-            for (Doctor doctor : foundDoctors) {
-                System.out.println(doctor);
-            }
+    ArrayList<Doctor> foundDoctors = new ArrayList<>();
+    for (Doctor doctor : doctors) {
+        if (name.isEmpty() || doctor.getName().contains(name)) {
+            foundDoctors.add(doctor);
         }
     }
 
+    if (foundDoctors.isEmpty()) {
+        System.out.println("No doctors found.");
+    } else {
+        System.out.println("Doctors found:");
+        for (Doctor doctor : foundDoctors) {
+            System.out.println(doctor);
+        }
+    }
+}
+
+
     private Doctor findDoctorByCode(String code) {
         for (Doctor doctor : doctors) {
-            if (doctor.getCode().equalsIgnoreCase(code)) {
+            if (doctor.getCode().equals(code)) {
                 return doctor;
             }
         }
         return null;
     }
 }
-
-
-
- 
