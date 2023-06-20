@@ -1,4 +1,4 @@
-package P0055;
+package P0055rv1;
 
 public class Doctor {
     private String code;
