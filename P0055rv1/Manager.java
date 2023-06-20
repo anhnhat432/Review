@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Manager {
-    private ArrayList<Doctor> doctors;
-    private Scanner scanner;
+
+    public ArrayList<Doctor> doctors;
+    public Scanner scanner;
 
     public Manager(ArrayList<Doctor> doctors) {
         this.doctors = doctors;
@@ -50,20 +51,45 @@ public class Manager {
 
     private int getUserChoice() {
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        scanner.nextLine();
         return choice;
     }
 
     private void addDoctor() {
-        System.out.print("Enter code: ");
-        String code = scanner.nextLine();
-        System.out.print("Enter name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter specialization: ");
-        String specialization = scanner.nextLine();
-        System.out.print("Enter availability: ");
-        int availability = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        String code;
+        String name;
+        String specialization;
+        int availability;
+        do {
+            System.out.print("Enter code: ");
+            code = scanner.nextLine();
+            if (!Validate.validateCode(code)) {
+                System.out.println("Invalid code format. Please try again.");
+            }
+        } while (!Validate.validateCode(code));
+
+        do {
+            System.out.print("Enter name: ");
+            name = scanner.nextLine();
+            if (!Validate.validateName(name)) {
+                System.out.println("Invalid name format. Please try again.");
+            }
+        } while (!Validate.validateName(name));
+        do {
+            System.out.print("Enter new specialization: ");
+            specialization = scanner.nextLine();
+            if (!Validate.validateSpecialization(specialization)) {
+                System.out.println("Invalid specialization format. Please try again.");
+            }
+        } while (!Validate.validateSpecialization(specialization));
+        do {
+            System.out.print("Enter new availability: ");
+            availability = scanner.nextInt();
+            scanner.nextLine();
+            if (!Validate.validateAvailability(availability)) {
+                System.out.println("Invalid availability value. Please try again.");
+            }
+        } while (!Validate.validateAvailability(availability));
 
         Doctor doctor = new Doctor(code, name, specialization, availability);
         doctors.add(doctor);
@@ -71,28 +97,54 @@ public class Manager {
     }
 
     private void updateDoctor() {
+   String code;
+     do {      
         System.out.print("Enter code: ");
-        String code = scanner.nextLine();
-        Doctor doctor = findDoctorByCode(code);
-        if (doctor == null) {
-            System.out.println("Doctor not found.");
-            return;
+        code = scanner.nextLine();
+        if(!Validate.validateCode(code)) {
+            System.out.println("Invalid name format. Please try again.");
         }
+    } while(!Validate.validateCode(code));
 
-        System.out.print("Enter new name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter new specialization: ");
-        String specialization = scanner.nextLine();
-        System.out.print("Enter new availability: ");
-        int availability = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
-
-        doctor.setName(name);
-        doctor.setSpecialization(specialization);
-        doctor.setAvailability(availability);
-        System.out.println("Doctor updated successfully.");
+    Doctor doctor = findDoctorByCode(code);
+    if (doctor == null) {
+        System.out.println("Doctor not found.");
+        return;
     }
 
+    String name;
+    do {
+        System.out.print("Enter new name: ");
+        name = scanner.nextLine();
+        if (!Validate.validateName(name)) {
+            System.out.println("Invalid name format. Please try again.");
+        }
+    } while (!Validate.validateName(name));
+
+    String specialization;
+    do {
+        System.out.print("Enter new specialization: ");
+        specialization = scanner.nextLine();
+        if (!Validate.validateSpecialization(specialization)) {
+            System.out.println("Invalid specialization format. Please try again.");
+        }
+    } while (!Validate.validateSpecialization(specialization));
+
+    int availability;
+    do {
+        System.out.print("Enter new availability: ");
+        availability = scanner.nextInt();
+        scanner.nextLine();
+        if (!Validate.validateAvailability(availability)) {
+            System.out.println("Invalid availability value. Please try again.");
+        }
+    } while (!Validate.validateAvailability(availability));
+
+    doctor.setName(name);
+    doctor.setSpecialization(specialization);
+    doctor.setAvailability(availability);
+    System.out.println("Doctor updated successfully.");
+}
     private void deleteDoctor() {
         System.out.print("Enter code: ");
         String code = scanner.nextLine();
@@ -106,27 +158,26 @@ public class Manager {
         System.out.println("Doctor deleted successfully.");
     }
 
-private void searchDoctor() {
-    System.out.print("Enter name : ");
-    String name = scanner.nextLine();
+    private void searchDoctor() {
+        System.out.print("Enter name : ");
+        String name = scanner.nextLine();
 
-    ArrayList<Doctor> foundDoctors = new ArrayList<>();
-    for (Doctor doctor : doctors) {
-        if (name.isEmpty() || doctor.getName().contains(name)) {
-            foundDoctors.add(doctor);
+        ArrayList<Doctor> foundDoctors = new ArrayList<>();
+        for (Doctor doctor : doctors) {
+            if (name.isEmpty() || doctor.getName().contains(name)) {
+                foundDoctors.add(doctor);
+            }
+        }
+
+        if (foundDoctors.isEmpty()) {
+            System.out.println("No doctors found.");
+        } else {
+            System.out.println("Doctors found:");
+            for (Doctor doctor : foundDoctors) {
+                System.out.println(doctor);
+            }
         }
     }
-
-    if (foundDoctors.isEmpty()) {
-        System.out.println("No doctors found.");
-    } else {
-        System.out.println("Doctors found:");
-        for (Doctor doctor : foundDoctors) {
-            System.out.println(doctor);
-        }
-    }
-}
-
 
     private Doctor findDoctorByCode(String code) {
         for (Doctor doctor : doctors) {

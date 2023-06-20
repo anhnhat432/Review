@@ -1,20 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package P0052rv3;
-
-/**
- *
- * @author FPT
- */
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-
-
 
 public class ManageEastAsiaCountries {
 
@@ -31,100 +19,119 @@ public class ManageEastAsiaCountries {
         System.out.println("3. Tìm kiếm thông tin quốc gia theo tên");
         System.out.println("4. Hiển thị thông tin quốc gia được sắp xếp theo tên tăng dần");
         System.out.println("5. Thoát");
-        System.out.print("Nhập lựa chọn của bạn: ");
+        System.out.print("Chọn chức năng: ");
         int choice = checkInputIntLimit(1, 5);
         return choice;
     }
 
-    public int checkInputIntLimit(int min, int max) {
+    public void addCountry() {
+        System.out.print("Nhập mã quốc gia: ");
+        String countryCode = in.nextLine().trim();
         while (true) {
-            try {
-                int result = Integer.parseInt(in.nextLine().trim());
-                if (result < min || result > max) {
-                    throw new NumberFormatException();
+            if (!Validate.isStringEmpty(countryCode)) {
+                boolean isExist = false;
+                for (Country country : countryList) {
+                    if (country.getCountryCode().equalsIgnoreCase(countryCode)) {
+                        isExist = true;
+                        break;
+                    }
                 }
-                return result;
-            } catch (NumberFormatException e) {
-                System.err.println("Vui lòng nhập số trong khoảng [" + min + ", " + max + "]");
-                System.out.print("Nhập lại: ");
+                if (isExist) {
+                    System.err.println("Mã quốc gia đã tồn tại.");
+                } else {
+                    break;
+                }
+            } else {
+                System.err.println("Mã quốc gia không được để trống.");
             }
+            System.out.print("Nhập lại mã quốc gia: ");
+            countryCode = in.nextLine().trim();
+        }
+
+        System.out.print("Nhập tên quốc gia: ");
+        String countryName = in.nextLine().trim();
+        while (Validate.isStringEmpty(countryName)) {
+            System.err.println("Tên quốc gia không được để trống.");
+            System.out.print("Nhập lại tên quốc gia: ");
+            countryName = in.nextLine().trim();
+        }
+
+        System.out.print("Nhập diện tích tổng cộng: ");
+        double countryArea = checkInputDouble();
+
+        System.out.print("Nhập địa hình: ");
+        String countryTerrain = in.nextLine().trim();
+
+        Country country = new Country(countryCode, countryName, countryArea, countryTerrain);
+        countryList.add(country);
+        System.out.println("Thêm thông tin quốc gia thành công.");
+    }
+
+    public void displayLatestCountry() {
+        if (countryList.isEmpty()) {
+            System.err.println("Danh sách trống.");
+            return;
+        }
+        countryList.get(countryList.size() - 1).display();
+    }
+
+    public void searchByName() {
+        if (countryList.isEmpty()) {
+            System.err.println("Danh sách trống.");
+            return;
+        }
+        System.out.print("Nhập tên quốc gia cần tìm kiếm: ");
+        String searchName = in.nextLine().trim();
+        boolean isFound = false;
+        for (Country country : countryList) {
+            if (country.getCountryName().toLowerCase().contains(searchName.toLowerCase())) {
+                country.display();
+                isFound = true;
+            }
+        }
+        if (!isFound) {
+            System.err.printf("Không tìm thấy quốc gia có tên %s.\n", searchName);
         }
     }
 
-    public String checkInputString() {
+    public void sortByCountryName() {
+        if (countryList.isEmpty()) {
+            System.err.println("Danh sách trống.");
+            return;
+        }
+        Collections.sort(countryList);
+        System.out.println("Danh sách quốc gia được sắp xếp theo tên tăng dần:");
+        System.out.printf("%-10s%-25s%-20s%-25s\n", "Mã QG", "Tên Quốc Gia", "Diện Tích", "Địa Hình");
+        for (Country country : countryList) {
+            country.display();
+        }
+    }
+
+    public int checkInputIntLimit(int min, int max) {
+        int result;
         while (true) {
-            String result = in.nextLine().trim();
-            if (result.isEmpty()) {
-                System.err.println("Không được để trống");
-                System.out.print("Nhập lại: ");
-            } else {
-                return result;
+            try {
+                result = Integer.parseInt(in.nextLine().trim());
+                if (result < min || result > max) {
+                    throw new NumberFormatException();
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.err.printf("Vui lòng nhập số trong khoảng từ %d đến %d.\n", min, max);
             }
         }
+        return result;
     }
 
     public double checkInputDouble() {
         while (true) {
-            try {
-                double result = Double.parseDouble(in.nextLine());
-                return result;
-            } catch (NumberFormatException e) {
-                System.err.println("Vui lòng nhập giá trị là số thực");
-                System.out.print("Nhập lại: ");
+            String input = in.nextLine().trim();
+            if (!Validate.isStringEmpty(input) && Validate.isDouble(input)) {
+                return Double.parseDouble(input);
+            } else {
+                System.err.println("Vui lòng nhập giá trị là số thực.");
             }
         }
-    }
 
-    public void inputCountry() {
-        System.out.print("Nhập mã quấc gia: ");
-        String countryCode = checkInputString();
-        if (!checkCountryExist(countryCode)) {
-            System.err.println("Mã quấc gia đã tồn tại.");
-            return;
-        }
-        System.out.print("Nhập tên quấc gia: ");
-        String countryName = checkInputString();
-        System.out.print("Nhập diện tích tổng cộng: ");
-        double countryArea = checkInputDouble();
-        System.out.print("Nhập địa hình quấc gia: ");
-        String countryTerrain = checkInputString();
-        countryList.add(new Country(countryCode, countryName, countryArea, countryTerrain));
-        System.out.println("thêm thành công.");
-    }
-
-    public void printCountry() {
-        System.out.printf("%-10s%-25s%-20s%-25s\n", "Mã", "Tên", "Diện tích", "Địa hình");
-        for (Country country : countryList) {
-            country.display();
-        }
-    }
-
-    public void printCountrySorted() {
-        Collections.sort(countryList);
-        System.out.printf("%-10s%-25s%-20s%-25s\n", "Mã", "Tên", "Diện tích", "Địa hình");
-        for (Country country : countryList) {
-            country.display();
-        }
-    }
-
-    public void searchByName() {
-        System.out.print("Nhập tên quốc gia để tìm kiếm: ");
-        String countryName = checkInputString();
-        System.out.printf("%-10s%-25s%-20s%-25s\n", "Mã", "Tên", "Diện tích", "Địa hình");
-        for (Country country : countryList) {
-            if (country.getCountryName().equalsIgnoreCase(countryName)) {
-                country.display();
-            }
-        }
-    }
-
-    public boolean checkCountryExist(String countryCode) {
-        for (Country country : countryList) {
-            if (country.getCountryCode().equalsIgnoreCase(countryCode)) {
-                return false;
-            }
-        }
-        return true;
     }
 }
-

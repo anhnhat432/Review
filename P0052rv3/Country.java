@@ -1,20 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package P0052rv3;
-
-/**
- *
- * @author FPT
- */
 public class Country extends EastAsiaCountries implements Comparable<Country> {
-
     private String countryTerrain;
 
-    public Country() {
-    }
+    public Country() {}
 
     public Country(String countryCode, String countryName, double countryArea, String countryTerrain) {
         super(countryCode, countryName, countryArea);
@@ -35,8 +23,7 @@ public class Country extends EastAsiaCountries implements Comparable<Country> {
     }
 
     @Override
-public int compareTo(Country t) {
-    return Integer.compare(this.getCountryName().length(), t.getCountryName().length());
-}
-
+    public int compareTo(Country t) {
+        return Integer.compare(this.getCountryName().length(), t.getCountryName().length());
+    }
 }

@@ -12,32 +12,32 @@ package P0052rv3;
 
 import java.util.ArrayList;
 
-
-
 public class Main {
     public static void main(String[] args) {
         ArrayList<Country> countryList = new ArrayList<>();
         ManageEastAsiaCountries manager = new ManageEastAsiaCountries(countryList);
-        
-        while (true) {
-            int choice = manager.menu();
+        int choice;
+        do {
+            choice = manager.menu();
             switch (choice) {
                 case 1:
-                    manager.inputCountry();
+                    manager.addCountry();
                     break;
                 case 2:
-                    manager.printCountry();
+                    manager.displayLatestCountry();
                     break;
                 case 3:
                     manager.searchByName();
                     break;
                 case 4:
-                    manager.printCountrySorted();
+                    manager.sortByCountryName();
                     break;
                 case 5:
-                    return;
+                    System.out.println("Kết thúc chương trình.");
+                    break;
             }
-        }
+        } while (choice != 5);
     }
 }
+
 

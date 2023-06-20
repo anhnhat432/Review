@@ -1,23 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package P0052rv3;
-
-/**
- *
- * @author FPT
- */
-
 public class EastAsiaCountries {
-
     protected String countryCode;
     protected String countryName;
     protected double countryArea;
 
-    public EastAsiaCountries() {
-    }
+    public EastAsiaCountries() {}
 
     public EastAsiaCountries(String countryCode, String countryName, double countryArea) {
         this.countryCode = countryCode;
@@ -50,6 +37,6 @@ public class EastAsiaCountries {
     }
 
     public void display() {
-
+        // do nothing
     }
 }
