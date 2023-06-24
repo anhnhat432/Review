@@ -13,3 +13,4 @@ public class Main {
         manager.run();
     }
 }
+// sửa nhập trùng tên 

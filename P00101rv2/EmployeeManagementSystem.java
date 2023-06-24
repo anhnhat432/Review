@@ -5,10 +5,7 @@
  */
 package P00101rv2;
 
-/**
- *
- * @author FPT
- */
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,6 +13,11 @@ public class EmployeeManagementSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         EmployeeManagement employeeManagement = new EmployeeManagement();
+
+        ArrayList<Employee> employeeList = new ArrayList<>();
+        employeeList.add(new Employee(1, "John", "Doe", "123-456-7890", "john.doe@example.com", "123 Main St, Anytown, USA", "01/01/1980", "Male", 50000.0, "ABC Company"));
+        employeeList.add(new Employee(2, "Jane", "Smith", "123-456-7890", "jane.smith@example.com", "456 Market St, Anytown, USA", "02/02/1990", "Female", 60000.0, "XYZ Corporation"));
+        employeeList.add(new Employee(3, "David", "Johnson", "123-456-7890", "david.johnson@example.com", "789 Broadway St, Anytown, USA", "03/03/1985", "Male", 70000.0, "DEF Inc."));
 
         while (true) {
             System.out.println("\nMain menu:");
@@ -83,7 +85,8 @@ public class EmployeeManagementSystem {
                 case 4:
                     System.out.print("Enter employee name to search: ");
                     String searchName = scanner.nextLine();
-                    employeeManagement.searchEmployees(searchName);
+                    employeeManagement.searchEmployees(employeeList, searchName);
+
                     break;
 
                 case 5:
@@ -100,4 +103,3 @@ public class EmployeeManagementSystem {
         }
     }
 }
-

@@ -69,23 +69,37 @@ public class EmployeeManagement {
         System.out.println("Employee not found.");
     }
 
-    public void searchEmployees(String name) {
-        List<Employee> matchingEmployees = new ArrayList<>();
-        for (Employee employee : employees) {
-            if (employee.getFirstName().equalsIgnoreCase(name) || employee.getLastName().equalsIgnoreCase(name)) {
-                matchingEmployees.add(employee);
-            }
-        }
-
-        if (matchingEmployees.isEmpty()) {
-            System.out.println("No employees found with the given name.");
-        } else {
-            System.out.println("Matching employees:");
-            for (Employee employee : matchingEmployees) {
-                System.out.println(employee.getId() + ": " + employee.getFirstName() + " " + employee.getLastName());
-            }
+public void searchEmployees(List<Employee> employeeList, String name) {
+    List<Employee> matchingEmployees = new ArrayList<>();
+    for (Employee employee : employeeList) {
+        if (employee.getFirstName().equalsIgnoreCase(name) || employee.getLastName().equalsIgnoreCase(name)) {
+            matchingEmployees.add(employee);
         }
     }
+
+    if (matchingEmployees.isEmpty()) {
+        System.out.println("No employees found with the given name.");
+    } else {
+        System.out.println("Matching employees:");
+        for (Employee employee : matchingEmployees) {
+            System.out.println("ID: " + employee.getId());
+            System.out.println("First Name: " + employee.getFirstName());
+            System.out.println("Last Name: " + employee.getLastName());
+            System.out.println("Phone: " + employee.getPhone());
+            System.out.println("Email: " + employee.getEmail());
+            System.out.println("Address: " + employee.getAddress());
+            System.out.println("Date of Birth: " + employee.getDob());
+            System.out.println("Sex: " + employee.getSex());
+            System.out.println("Salary: " + employee.getSalary());
+            System.out.println("Agency: " + employee.getAgency());
+            System.out.println("--------------------");
+        }
+    }
+}
+
+
+
+
 
     public void sortEmployeesBySalary() {
         employees.sort(Comparator.comparingDouble(Employee::getSalary));
@@ -98,4 +112,4 @@ public class EmployeeManagement {
         }
     }
 }
-
+// tạo thêm các validate
