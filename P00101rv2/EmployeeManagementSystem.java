@@ -10,14 +10,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EmployeeManagementSystem {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         EmployeeManagement employeeManagement = new EmployeeManagement();
-
-        ArrayList<Employee> employeeList = new ArrayList<>();
-        employeeList.add(new Employee(1, "John", "Doe", "123-456-7890", "john.doe@example.com", "123 Main St, Anytown, USA", "01/01/1980", "Male", 50000.0, "ABC Company"));
-        employeeList.add(new Employee(2, "Jane", "Smith", "123-456-7890", "jane.smith@example.com", "456 Market St, Anytown, USA", "02/02/1990", "Female", 60000.0, "XYZ Corporation"));
-        employeeList.add(new Employee(3, "David", "Johnson", "123-456-7890", "david.johnson@example.com", "789 Broadway St, Anytown, USA", "03/03/1985", "Male", 70000.0, "DEF Inc."));
 
         while (true) {
             System.out.println("\nMain menu:");
@@ -48,19 +44,61 @@ public class EmployeeManagementSystem {
                     String firstName = scanner.nextLine();
                     System.out.print("Enter last name: ");
                     String lastName = scanner.nextLine();
-                    System.out.print("Enter phone number: ");
-                    String phone = scanner.nextLine();
-                    System.out.print("Enter email address: ");
-                    String email = scanner.nextLine();
+                    String phone;
+                    do {
+                        System.out.print("Enter phone number: ");
+                        phone = scanner.nextLine();
+                        if (!Validate.isValidPhone(phone)) {
+                            System.out.println("Invalid phone number. Please enter a valid phone number.");
+                        }
+                    } while (!Validate.isValidPhone(phone));
+
+                    String email;
+                    do {
+                        System.out.print("Enter email address: ");
+                        email = scanner.nextLine();
+                        if (!Validate.isValidEmail(email)) {
+                            System.out.println("Invalid email address. Please enter a valid email address.");
+                        }
+                    } while (!Validate.isValidEmail(email));
+
                     System.out.print("Enter address: ");
                     String address = scanner.nextLine();
-                    System.out.print("Enter date of birth: ");
-                    String dob = scanner.nextLine();
-                    System.out.print("Enter sex: ");
-                    String sex = scanner.nextLine();
-                    System.out.print("Enter salary: ");
-                    double salary = scanner.nextDouble();
-                    scanner.nextLine(); // Consume the newline character
+
+                    String dob;
+                    do {
+                        System.out.print("Enter date of birth (dd/mm/yyyy): ");
+                        dob = scanner.nextLine();
+                        if (!Validate.isValidDate(dob)) {
+                            System.out.println("Invalid date of birth. Please enter a valid date in the format dd/mm/yyyy.");
+                        }
+                    } while (!Validate.isValidDate(dob));
+
+                    String sex;
+                    do {
+                        System.out.print("Enter sex (Male/Female): ");
+                        sex = scanner.nextLine();
+                        if (!Validate.isValidSex(sex)) {
+                            System.out.println("Invalid sex. Please enter a valid date in the format (Male/Female");
+                        }
+                    } while (!Validate.isValidSex(sex));
+
+                    double salary;
+                    do {
+                        System.out.print("Enter salary: ");
+                        try {
+                            salary = scanner.nextDouble();
+                            scanner.nextLine(); // Consume the newline character
+                            if (salary <= 0) {
+                                System.out.println("Invalid salary. Please enter a positive value.");
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. Please enter a number.");
+                            scanner.nextLine(); // Clear the input buffer
+                            salary = -1;
+                        }
+                    } while (salary <= 0);
+
                     System.out.print("Enter agency: ");
                     String agency = scanner.nextLine();
 
@@ -72,21 +110,20 @@ public class EmployeeManagementSystem {
                     System.out.print("Enter employee ID to update: ");
                     int updateId = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character
-                    employeeManagement.updateEmployee(updateId);
+                    // Logic for updating employee
                     break;
 
                 case 3:
                     System.out.print("Enter employee ID to remove: ");
                     int removeId = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character
-                    employeeManagement.removeEmployee(removeId);
+                    // Logic for removing employee
                     break;
 
                 case 4:
                     System.out.print("Enter employee name to search: ");
                     String searchName = scanner.nextLine();
-                    employeeManagement.searchEmployees(employeeList, searchName);
-
+                    employeeManagement.searchEmployees(searchName);
                     break;
 
                 case 5:
