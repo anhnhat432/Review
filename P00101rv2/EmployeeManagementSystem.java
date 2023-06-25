@@ -110,14 +110,14 @@ public class EmployeeManagementSystem {
                     System.out.print("Enter employee ID to update: ");
                     int updateId = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character
-                    // Logic for updating employee
+                    employeeManagement.updateEmployee(updateId);
                     break;
 
                 case 3:
                     System.out.print("Enter employee ID to remove: ");
                     int removeId = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline character
-                    // Logic for removing employee
+                    employeeManagement.removeEmployee(removeId);
                     break;
 
                 case 4:
