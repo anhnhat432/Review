@@ -60,13 +60,21 @@ public class Manager {
         String name;
         String specialization;
         int availability;
+        boolean duplicateCode;
+
         do {
             System.out.print("Enter code: ");
             code = scanner.nextLine();
-            if (!Validate.validateCode(code)) {
-                System.out.println("Invalid code format. Please try again.");
+            duplicateCode = Validate.checkDuplicateCode(code, doctors);
+            if (!Validate.validateCode(code) || duplicateCode) {
+                if (!Validate.validateCode(code)) {
+                    System.out.println("Invalid code format. Please try again.");
+                }
+                if (duplicateCode) {
+                    System.out.println("Code already exists. Please enter a different code.");
+                }
             }
-        } while (!Validate.validateCode(code));
+        } while (!Validate.validateCode(code) || duplicateCode);
 
         do {
             System.out.print("Enter name: ");
@@ -97,54 +105,55 @@ public class Manager {
     }
 
     private void updateDoctor() {
-   String code;
-     do {      
-        System.out.print("Enter code: ");
-        code = scanner.nextLine();
-        if(!Validate.validateCode(code)) {
-            System.out.println("Invalid name format. Please try again.");
-        }
-    } while(!Validate.validateCode(code));
+        String code;
+        do {
+            System.out.print("Enter code: ");
+            code = scanner.nextLine();
+            if (!Validate.validateCode(code)) {
+                System.out.println("Invalid name format. Please try again.");
+            }
+        } while (!Validate.validateCode(code));
 
-    Doctor doctor = findDoctorByCode(code);
-    if (doctor == null) {
-        System.out.println("Doctor not found.");
-        return;
+        Doctor doctor = findDoctorByCode(code);
+        if (doctor == null) {
+            System.out.println("Doctor not found.");
+            return;
+        }
+
+        String name;
+        do {
+            System.out.print("Enter new name: ");
+            name = scanner.nextLine();
+            if (!Validate.validateName(name)) {
+                System.out.println("Invalid name format. Please try again.");
+            }
+        } while (!Validate.validateName(name));
+
+        String specialization;
+        do {
+            System.out.print("Enter new specialization: ");
+            specialization = scanner.nextLine();
+            if (!Validate.validateSpecialization(specialization)) {
+                System.out.println("Invalid specialization format. Please try again.");
+            }
+        } while (!Validate.validateSpecialization(specialization));
+
+        int availability;
+        do {
+            System.out.print("Enter new availability: ");
+            availability = scanner.nextInt();
+            scanner.nextLine();
+            if (!Validate.validateAvailability(availability)) {
+                System.out.println("Invalid availability value. Please try again.");
+            }
+        } while (!Validate.validateAvailability(availability));
+
+        doctor.setName(name);
+        doctor.setSpecialization(specialization);
+        doctor.setAvailability(availability);
+        System.out.println("Doctor updated successfully.");
     }
 
-    String name;
-    do {
-        System.out.print("Enter new name: ");
-        name = scanner.nextLine();
-        if (!Validate.validateName(name)) {
-            System.out.println("Invalid name format. Please try again.");
-        }
-    } while (!Validate.validateName(name));
-
-    String specialization;
-    do {
-        System.out.print("Enter new specialization: ");
-        specialization = scanner.nextLine();
-        if (!Validate.validateSpecialization(specialization)) {
-            System.out.println("Invalid specialization format. Please try again.");
-        }
-    } while (!Validate.validateSpecialization(specialization));
-
-    int availability;
-    do {
-        System.out.print("Enter new availability: ");
-        availability = scanner.nextInt();
-        scanner.nextLine();
-        if (!Validate.validateAvailability(availability)) {
-            System.out.println("Invalid availability value. Please try again.");
-        }
-    } while (!Validate.validateAvailability(availability));
-
-    doctor.setName(name);
-    doctor.setSpecialization(specialization);
-    doctor.setAvailability(availability);
-    System.out.println("Doctor updated successfully.");
-}
     private void deleteDoctor() {
         System.out.print("Enter code: ");
         String code = scanner.nextLine();
