@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
+
     private static final Scanner scanner = new Scanner(System.in);
 
     private static int checkIntLimit(int min, int max) {
@@ -38,7 +39,6 @@ public class Main {
     private static String checkInputDate() {
         String input;
         while (true) {
-            System.out.print("Enter a date (dd-MM-yyyy): ");
             input = scanner.nextLine().trim();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             format.setLenient(false);
@@ -54,7 +54,6 @@ public class Main {
     private static String checkInputString() {
         String input;
         while (true) {
-            System.out.print("Enter a value: ");
             input = scanner.nextLine().trim();
             if (input.isEmpty()) {
                 System.err.println("Input cannot be empty. Please try again.");
@@ -82,11 +81,11 @@ public class Main {
     }
 
     private static void addTask(ArrayList<Task> taskList, int id) {
-        System.out.println("Enter Requirement Name: ");
+        System.out.print("Enter Requirement Name: ");
         String requirementName = checkInputString();
         System.out.print("Enter Task Type (1: Code, 2: Test, 3: Manager, 4: Learn): ");
         String taskTypeId = checkInputTaskTypeId();
-        System.out.print("Enter Date: ");
+        System.out.print("Enter a date (dd-MM-yyyy): ");
         String date = checkInputDate();
         System.out.print("Enter From: ");
         double planFrom = checkInputTime();
@@ -214,4 +213,3 @@ public class Main {
         display();
     }
 }
-

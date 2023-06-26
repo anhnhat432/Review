@@ -63,8 +63,11 @@ public class Manager {
         boolean duplicateCode;
 
         do {
+        
             System.out.print("Enter code: ");
             code = scanner.nextLine();
+            boolean isValidate = Validate.validateCode(code);
+            System.out.println(" isValidate = "+isValidate);
             duplicateCode = Validate.checkDuplicateCode(code, doctors);
             if (!Validate.validateCode(code) || duplicateCode) {
                 if (!Validate.validateCode(code)) {
@@ -177,7 +180,7 @@ public class Manager {
                 foundDoctors.add(doctor);
             }
         }
-
+// tìm hiểu rõ dòng code , chuẩn hóa sâu tìm kiếm , không phân biệt hoa thường
         if (foundDoctors.isEmpty()) {
             System.out.println("No doctors found.");
         } else {
