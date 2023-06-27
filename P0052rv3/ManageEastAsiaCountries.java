@@ -127,11 +127,17 @@ public class ManageEastAsiaCountries {
         while (true) {
             String input = in.nextLine().trim();
             if (!Validate.isStringEmpty(input) && Validate.isDouble(input)) {
-                return Double.parseDouble(input);
+                double value = Double.parseDouble(input);
+                if (value >= 0) {
+                    return value;
+                } else {
+                    System.err.print("Vui lòng nhập giá trị không âm : ");
+                }
             } else {
                 System.err.println("Vui lòng nhập giá trị là số thực.");
             }
         }
-
     }
+
 }
+//check diện tích âm

@@ -87,14 +87,14 @@ public class Manager {
             }
         } while (!Validate.validateName(name));
         do {
-            System.out.print("Enter new specialization: ");
+            System.out.print("Enter specialization: ");
             specialization = scanner.nextLine();
             if (!Validate.validateSpecialization(specialization)) {
                 System.out.println("Invalid specialization format. Please try again.");
             }
         } while (!Validate.validateSpecialization(specialization));
         do {
-            System.out.print("Enter new availability: ");
+            System.out.print("Enter availability: ");
             availability = scanner.nextInt();
             scanner.nextLine();
             if (!Validate.validateAvailability(availability)) {
@@ -171,25 +171,28 @@ public class Manager {
     }
 
     private void searchDoctor() {
-        System.out.print("Enter name : ");
-        String name = scanner.nextLine();
+    System.out.print("Enter name: ");
+    String name = scanner.nextLine().toLowerCase().trim(); // Chuyển đổi và loại bỏ khoảng trắng
 
-        ArrayList<Doctor> foundDoctors = new ArrayList<>();
-        for (Doctor doctor : doctors) {
-            if (name.isEmpty() || doctor.getName().contains(name)) {
-                foundDoctors.add(doctor);
-            }
-        }
-// tìm hiểu rõ dòng code , chuẩn hóa sâu tìm kiếm , không phân biệt hoa thường
-        if (foundDoctors.isEmpty()) {
-            System.out.println("No doctors found.");
-        } else {
-            System.out.println("Doctors found:");
-            for (Doctor doctor : foundDoctors) {
-                System.out.println(doctor);
-            }
+    ArrayList<Doctor> foundDoctors = new ArrayList<>();
+    for (Doctor doctor : doctors) {
+        String doctorName = doctor.getName().toLowerCase().trim(); // Chuyển đổi và loại bỏ khoảng trắng
+
+        if (name.isEmpty() || doctorName.contains(name)) {
+            foundDoctors.add(doctor);
         }
     }
+
+    if (foundDoctors.isEmpty()) {
+        System.out.println("No doctors found.");
+    } else {
+        System.out.println("Doctors found:");
+        for (Doctor doctor : foundDoctors) {
+            System.out.println(doctor);
+        }
+    }
+}
+
 
     private Doctor findDoctorByCode(String code) {
         for (Doctor doctor : doctors) {
