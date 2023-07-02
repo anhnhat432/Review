@@ -18,11 +18,12 @@ import java.util.Scanner;
 public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
+    private static int id = 1;
 
-    private static int checkIntLimit(int min, int max) {
+    private static int checkIntLimit(int min, int max, String message) {
         int input;
         while (true) {
-            System.out.print("Enter a number between " + min + " and " + max + ": ");
+            System.out.print(message);
             try {
                 input = Integer.parseInt(scanner.nextLine());
                 if (input >= min && input <= max) {
@@ -51,9 +52,10 @@ public class Main {
         }
     }
 
-    private static String checkInputString() {
+    private static String checkInputString(String message) {
         String input;
         while (true) {
+            System.out.print(message);
             input = scanner.nextLine().trim();
             if (input.isEmpty()) {
                 System.err.println("Input cannot be empty. Please try again.");
@@ -80,9 +82,9 @@ public class Main {
         }
     }
 
-    private static void addTask(ArrayList<Task> taskList, int id) {
+    private static void addTask(ArrayList<Task> taskList) {
         System.out.print("Enter Requirement Name: ");
-        String requirementName = checkInputString();
+        String requirementName = checkInputString("Enter Requirement Name: ");
         System.out.print("Enter Task Type (1: Code, 2: Test, 3: Manager, 4: Learn): ");
         String taskTypeId = checkInputTaskTypeId();
         System.out.print("Enter a date (dd-MM-yyyy): ");
@@ -92,11 +94,12 @@ public class Main {
         System.out.print("Enter To: ");
         double planTo = checkInputTime();
         System.out.print("Enter Assignee: ");
-        String assign = checkInputString();
+        String assign = checkInputString("Enter Assignee: ");
         System.out.print("Enter Reviewer: ");
-        String reviewer = checkInputString();
+        String reviewer = checkInputString("Enter Reviewer: ");
         taskList.add(new Task(id, taskTypeId, requirementName, date, Double.toString(planFrom), Double.toString(planTo), assign, reviewer));
         System.out.println("Task added successfully.");
+        id++;
     }
 
     private static void deleteTask(ArrayList<Task> taskList) {
@@ -111,12 +114,12 @@ public class Main {
                 taskList.get(i).setId(taskList.get(i).getId() - 1);
             }
             System.out.println("Task deleted successfully.");
+            id--;
         }
     }
 
     private static int findTaskIndex(ArrayList<Task> taskList) {
-        System.out.print("Enter task ID: ");
-        int id = checkInputInt();
+        int id = checkIntLimit(1, Integer.MAX_VALUE, "Enter task ID: ");
         for (int i = 0; i < taskList.size(); i++) {
             if (taskList.get(i).getId() == id) {
                 return i;
@@ -149,7 +152,7 @@ public class Main {
     }
 
     private static String checkInputTaskTypeId() {
-        int input = checkIntLimit(1, 4);
+        int input = checkIntLimit(1, 4, "Enter Task Type (1: Code, 2: Test, 3: Manager, 4: Learn): ");
         String result = null;
         switch (input) {
             case 1:
@@ -168,37 +171,21 @@ public class Main {
         return result;
     }
 
-    private static int checkInputInt() {
-        int input;
-        while (true) {
-            System.out.print("Enter a number: ");
-            try {
-                input = Integer.parseInt(scanner.nextLine());
-                return input;
-            } catch (NumberFormatException ex) {
-                System.err.println("Invalid input. Please try again.");
-            }
-        }
-    }
-
     private static void display() {
         ArrayList<Task> taskList = new ArrayList<>();
         int choice;
-        int id = 1;
         while (true) {
             System.out.println("1. Add Task");
             System.out.println("2. Delete Task");
             System.out.println("3. Display Tasks");
             System.out.println("4. Exit");
-            choice = checkIntLimit(1, 4);
+            choice = checkIntLimit(1, 4, "Enter your choice: ");
             switch (choice) {
                 case 1:
-                    addTask(taskList, id);
-                    id++;
+                    addTask(taskList);
                     break;
                 case 2:
                     deleteTask(taskList);
-                    id--;
                     break;
                 case 3:
                     displayTasks(taskList);
@@ -213,4 +200,5 @@ public class Main {
         display();
     }
 }
+
 
