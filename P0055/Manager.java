@@ -1,4 +1,4 @@
-package P0055rv1;
+package P0055;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -81,7 +81,7 @@ public class Manager {
 
         do {
             System.out.print("Enter name: ");
-            name = scanner.nextLine();
+            name = scanner.nextLine().trim();
             if (!Validate.validateName(name)) {
                 System.out.println("Invalid name format. Please try again.");
             }
@@ -172,7 +172,7 @@ public class Manager {
 
     private void searchDoctor() {
     System.out.print("Enter name: ");
-    String name = scanner.nextLine().toLowerCase().trim(); // Chuyển đổi và loại bỏ khoảng trắng
+    String name = scanner.nextLine().toLowerCase().replaceAll("\\s+", " ").trim(); // Chuyển đổi và loại bỏ khoảng trắng
 
     ArrayList<Doctor> foundDoctors = new ArrayList<>();
     for (Doctor doctor : doctors) {
@@ -180,6 +180,7 @@ public class Manager {
 
         if (name.isEmpty() || doctorName.contains(name)) {
             foundDoctors.add(doctor);
+            System.out.println(doctor);
         }
     }
 

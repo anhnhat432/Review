@@ -24,6 +24,6 @@ public class Country extends EastAsiaCountries implements Comparable<Country> {
 
     @Override
     public int compareTo(Country t) {
-        return Integer.compare(this.getCountryName().length(), t.getCountryName().length());
+        return this.getCountryName().compareTo (t.getCountryName());
     }
 }
