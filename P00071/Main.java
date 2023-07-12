@@ -40,22 +40,22 @@ public class Main {
     private static String checkInputDate() {
         String input;
         while (true) {
-            input = scanner.nextLine().trim();
+            
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             format.setLenient(false);
-            try {
+            try {input = scanner.nextLine().trim();
                 Date date = format.parse(input);
                 return format.format(date);
             } catch (ParseException ex) {
-                System.err.println("Invalid date format. Please try again.");
+                System.err.print("Invalid date format. Please try again :");
             }
         }
     }
+// sua de hieu hon
 
     private static String checkInputString(String message) {
         String input;
         while (true) {
-            System.out.print(message);
             input = scanner.nextLine().trim();
             if (input.isEmpty()) {
                 System.err.println("Input cannot be empty. Please try again.");
@@ -81,11 +81,11 @@ public class Main {
             }
         }
     }
+// sua nhap nguoc
 
     private static void addTask(ArrayList<Task> taskList) {
         System.out.print("Enter Requirement Name: ");
         String requirementName = checkInputString("Enter Requirement Name: ");
-        System.out.print("Enter Task Type (1: Code, 2: Test, 3: Manager, 4: Learn): ");
         String taskTypeId = checkInputTaskTypeId();
         System.out.print("Enter a date (dd-MM-yyyy): ");
         String date = checkInputDate();
@@ -93,6 +93,13 @@ public class Main {
         double planFrom = checkInputTime();
         System.out.print("Enter To: ");
         double planTo = checkInputTime();
+        while (planFrom >= planTo) {
+            System.err.println("nhap lai :");
+            System.out.print("Enter From: ");
+            planFrom = checkInputTime();
+            System.out.print("Enter To: ");
+            planTo = checkInputTime();
+        }
         System.out.print("Enter Assignee: ");
         String assign = checkInputString("Enter Assignee: ");
         System.out.print("Enter Reviewer: ");
@@ -116,7 +123,7 @@ public class Main {
             System.out.println("Task deleted successfully.");
             id--;
         }
-    }
+    }// sua 1de hieu hon
 
     private static int findTaskIndex(ArrayList<Task> taskList) {
         int id = checkIntLimit(1, Integer.MAX_VALUE, "Enter task ID: ");
@@ -200,5 +207,3 @@ public class Main {
         display();
     }
 }
-
-

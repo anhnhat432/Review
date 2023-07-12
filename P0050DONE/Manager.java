@@ -109,7 +109,7 @@ public class Manager {
         if (checkOdd(b)) {
             System.out.print(b + " ");
         }
-        if (checkOdd(x)) {
+        if (!checkEven(x)) {
             System.out.print(x + " ");
         }
         System.out.print("Number is even: ");
@@ -184,56 +184,63 @@ public class Manager {
         if (checkOdd(c)) {
             System.out.print(c + " ");
         }
-        int delta = 0;
-        if (delta >= 0) {
-            if (checkOdd(x1)) {
-                System.out.print(x1 + " ");
-            }
-            if (checkOdd(x2)) {
-                System.out.print(x2 + " ");
-            }
+        if (!checkOdd(x1)) {
+            System.out.print(x1 + " ");
         }
+        if (!checkOdd(x2)) {
+            System.out.print(x2 + " ");
 
-        System.out.println();
-        System.out.print("Even numbers: ");
-        if (checkEven(a)) {
-            System.out.print(a + " ");
-        }
-        if (checkEven(b)) {
-            System.out.print(b + " ");
-        }
-        if (checkEven(c)) {
-            System.out.print(c + " ");
-        }
-        if (delta >= 0) {
-            if (checkEven(x1)) {
-                System.out.print(x1 + " ");
+            int delta = 0;
+            if (delta >= 0) {
+                if (checkOdd(x1)) {
+                    System.out.print(x1 + " ");
+                }
+                if (checkOdd(x2)) {
+                    System.out.print(x2 + " ");
+                }
             }
-            if (checkEven(x2)) {
-                System.out.print(x2 + " ");
-            }
-        }
 
-        System.out.println();
-        System.out.print("Perfect squares: ");
-        if (checkSquareNumber(a)) {
-            System.out.print(a + " ");
-        }
-        if (checkSquareNumber(b)) {
-            System.out.print(b + " ");
-        }
-        if (checkSquareNumber(c)) {
-            System.out.print(c + " ");
-        }
-        if (delta >= 0) {
-            if (checkSquareNumber(x1)) {
-                System.out.print(x1 + " ");
+            System.out.println();
+            System.out.print("Even numbers: ");
+            if (checkEven(a)) {
+                System.out.print(a + " ");
             }
-            if (checkSquareNumber(x2)) {
-                System.out.print(x2 + " ");
+            if (checkEven(b)) {
+                System.out.print(b + " ");
             }
-        }
+            if (checkEven(c)) {
+                System.out.print(c + " ");
+            }
+            if (delta >= 0) {
+                if (checkEven(x1)) {
+                    System.out.print(x1 + " ");
+                }
+                if (checkEven(x2)) {
+                    System.out.print(x2 + " ");
+                }
+            }
 
-        System.out.println();
+            System.out.println();
+            System.out.print("Perfect squares: ");
+            if (checkSquareNumber(a)) {
+                System.out.print(a + " ");
+            }
+            if (checkSquareNumber(b)) {
+                System.out.print(b + " ");
+            }
+            if (checkSquareNumber(c)) {
+                System.out.print(c + " ");
+            }
+            if (delta >= 0) {
+                if (checkSquareNumber(x1)) {
+                    System.out.print(x1 + " ");
+                }
+                if (checkSquareNumber(x2)) {
+                    System.out.print(x2 + " ");
+                }
+            }
+
+            System.out.println();
+        }
     }
 }

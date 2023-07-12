@@ -13,6 +13,7 @@ import java.util.Scanner;
  *
  * @author FPT
  */
+
 public class Design {
 
     public ArrayList<Fruit> fruits = new ArrayList<Fruit>();
@@ -29,27 +30,26 @@ public class Design {
 
         do {
             System.out.print("Enter Fruit Id: ");
-            int id = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
+            int id = Validation.checkInputInt();
 
             System.out.print("Enter Fruit Name: ");
-            String name = scanner.nextLine();
+            String name = Validation.checkInputString();
 
             System.out.print("Enter Price: ");
-            int price = scanner.nextInt();
+            int price = Validation.checkInputInt();
 
             System.out.print("Enter Quantity: ");
-            int quantity = scanner.nextInt();
+            int quantity = Validation.checkInputInt();
             scanner.nextLine(); // Consume newline character
 
             System.out.print("Enter Origin: ");
-            String origin = scanner.nextLine();
+            String origin = Validation.checkInputString();
 
             Fruit fruit = new Fruit(id, name, price, quantity, origin);
             fruits.add(fruit);
 
             System.out.print("Do you want to continue (Y/N)? ");
-            continueChoice = scanner.nextLine();
+            continueChoice = Validation.checkInputYN();
         } while (continueChoice.equalsIgnoreCase("Y"));
 
         displayFruits();
@@ -96,29 +96,38 @@ public class Design {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Fruit> shoppingCart = new ArrayList<>();
 
-        String continueChoice;
+        String continueChoice = "";
         do {
             System.out.print("Select Item: ");
-            int selectedItem = scanner.nextInt();
+            int selectedItem = Validation.checkInputInt();
             scanner.nextLine(); // Consume newline character
+
+            if (selectedItem < 1 || selectedItem > fruits.size()) {
+                System.out.println("Invalid item selection. Please try again.");
+                continue;
+            }
 
             System.out.println("You selected: " + fruits.get(selectedItem - 1).getName());
             System.out.print("Please input quantity: ");
-            int quantity = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
+            int quantity = Validation.checkInputInt();
 
             Fruit selectedFruit = fruits.get(selectedItem - 1);
+            if (quantity > selectedFruit.getQuantity()) {
+                System.out.println("Insufficient quantity. Please try again.");
+                continue;
+            }
+
             selectedFruit = new Fruit(selectedFruit.getId(), selectedFruit.getName(),
                     selectedFruit.getPrice(), quantity, selectedFruit.getOrigin());
 
             shoppingCart.add(selectedFruit);
 
             System.out.print("Do you want to order now (Y/N)? ");
-            continueChoice = scanner.nextLine();
-        } while (continueChoice.equalsIgnoreCase("N"));
+            continueChoice = Validation.checkInputYN();
+        } while (!continueChoice.equalsIgnoreCase("N"));
 
         System.out.print("Input your name: ");
-        String customerName = scanner.nextLine();
+        String customerName = Validation.checkInputString();
 
         orders.put(customerName, shoppingCart);
 
@@ -136,7 +145,7 @@ public class Design {
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Please choose an option: ");
-        int choice = scanner.nextInt();
+        int choice = Validation.checkInputIntLimit(1, 4);
 
         switch (choice) {
             case 1:
@@ -156,4 +165,5 @@ public class Design {
         }
     }
 }
+
 
