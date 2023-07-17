@@ -40,8 +40,7 @@ public class Design {
 
             System.out.print("Enter Quantity: ");
             int quantity = Validation.checkInputInt();
-            scanner.nextLine(); // Consume newline character
-
+            
             System.out.print("Enter Origin: ");
             String origin = Validation.checkInputString();
 
@@ -91,50 +90,58 @@ public class Design {
         }
     }
 
-    public void shopping() {
-        displayFruits();
-        Scanner scanner = new Scanner(System.in);
-        ArrayList<Fruit> shoppingCart = new ArrayList<>();
+public void shopping() {
+    displayFruits();
+    Scanner scanner = new Scanner(System.in);
+    ArrayList<Fruit> shoppingCart = new ArrayList<>();
 
-        String continueChoice = "";
-        do {
-            System.out.print("Select Item: ");
-            int selectedItem = Validation.checkInputInt();
-            scanner.nextLine(); // Consume newline character
+    String continueChoice = "";
+    do {
+        System.out.print("Select Item: ");
+        int selectedItem = Validation.checkInputInt();
 
-            if (selectedItem < 1 || selectedItem > fruits.size()) {
-                System.out.println("Invalid item selection. Please try again.");
-                continue;
-            }
+        if (selectedItem < 1 || selectedItem > fruits.size()) {
+            System.out.println("Invalid item selection. Please try again.");
+            continue;
+        }
 
-            System.out.println("You selected: " + fruits.get(selectedItem - 1).getName());
+        System.out.println("You selected: " + fruits.get(selectedItem - 1).getName());
+        
+        int quantity;
+        while (true) {
             System.out.print("Please input quantity: ");
-            int quantity = Validation.checkInputInt();
+            quantity = Validation.checkInputInt();
 
             Fruit selectedFruit = fruits.get(selectedItem - 1);
             if (quantity > selectedFruit.getQuantity()) {
                 System.out.println("Insufficient quantity. Please try again.");
-                continue;
+            } else {
+                break;
             }
+        }
 
-            selectedFruit = new Fruit(selectedFruit.getId(), selectedFruit.getName(),
-                    selectedFruit.getPrice(), quantity, selectedFruit.getOrigin());
+        Fruit selectedFruit = fruits.get(selectedItem - 1);
+        selectedFruit.setQuantity(selectedFruit.getQuantity() - quantity); // update the quantity of the fruit in the list
+        selectedFruit = new Fruit(selectedFruit.getId(), selectedFruit.getName(),
+                selectedFruit.getPrice(), quantity, selectedFruit.getOrigin());
 
-            shoppingCart.add(selectedFruit);
+        shoppingCart.add(selectedFruit);
 
-            System.out.print("Do you want to order now (Y/N)? ");
-            continueChoice = Validation.checkInputYN();
-        } while (!continueChoice.equalsIgnoreCase("N"));
+        System.out.print("Do you want to order now (Y/N)? ");
+        continueChoice = Validation.checkInputYN();
+    } while (continueChoice.equalsIgnoreCase("N"));
 
-        System.out.print("Input your name: ");
-        String customerName = Validation.checkInputString();
+    System.out.print("Input your name: ");
+    String customerName = Validation.checkInputString();
 
-        orders.put(customerName, shoppingCart);
+    orders.put(customerName, shoppingCart);
 
-        System.out.println("Order placed successfully!");
+    System.out.println("Order placed successfully!");
 
-        displayMainScreen();
-    }
+    displayMainScreen();
+}
+
+
 
     public void displayMainScreen() {
         System.out.println("\nFRUIT SHOP SYSTEM");

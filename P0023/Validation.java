@@ -68,7 +68,6 @@ public class Validation {
     }
 
     public static String checkInputYN() {
-    System.out.print("Do you want to continue (Y/N)? ");
     while (true) {
         String result = checkInputString();
         if (result.equalsIgnoreCase("Y") || result.equalsIgnoreCase("N")) {
