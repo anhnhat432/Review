@@ -14,9 +14,10 @@ import java.util.Scanner;
  * @author FPT
  */
 
+
 public class Design {
 
-    public ArrayList<Fruit> fruits = new ArrayList<Fruit>();
+    public ArrayList<Fruit> fruits;
     public Hashtable<String, ArrayList<Fruit>> orders;
 
     public Design() {
@@ -40,7 +41,7 @@ public class Design {
 
             System.out.print("Enter Quantity: ");
             int quantity = Validation.checkInputInt();
-            
+
             System.out.print("Enter Origin: ");
             String origin = Validation.checkInputString();
 
@@ -97,50 +98,53 @@ public void shopping() {
 
     String continueChoice = "";
     do {
-        System.out.print("Select Item: ");
+        System.out.print("Chọn một mục: ");
         int selectedItem = Validation.checkInputInt();
 
         if (selectedItem < 1 || selectedItem > fruits.size()) {
-            System.out.println("Invalid item selection. Please try again.");
-            continue;
+            System.out.println("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+            break;
         }
 
-        System.out.println("You selected: " + fruits.get(selectedItem - 1).getName());
-        
+        System.out.println("Bạn đã chọn: " + fruits.get(selectedItem - 1).getName());
+
         int quantity;
         while (true) {
-            System.out.print("Please input quantity: ");
+            System.out.print("Vui lòng nhập số lượng: ");
             quantity = Validation.checkInputInt();
 
             Fruit selectedFruit = fruits.get(selectedItem - 1);
             if (quantity > selectedFruit.getQuantity()) {
-                System.out.println("Insufficient quantity. Please try again.");
+                System.out.println("Số lượng không đủ. Vui lòng thử lại.");
             } else {
                 break;
             }
         }
 
         Fruit selectedFruit = fruits.get(selectedItem - 1);
-        selectedFruit.setQuantity(selectedFruit.getQuantity() - quantity); // update the quantity of the fruit in the list
-        selectedFruit = new Fruit(selectedFruit.getId(), selectedFruit.getName(),
-                selectedFruit.getPrice(), quantity, selectedFruit.getOrigin());
+        selectedFruit.setQuantity(selectedFruit.getQuantity() - quantity); 
 
-        shoppingCart.add(selectedFruit);
+        shoppingCart.add(new Fruit(
+                selectedFruit.getId(),
+                selectedFruit.getName(),
+                selectedFruit.getPrice(),
+                quantity,
+                selectedFruit.getOrigin()
+        ));
 
-        System.out.print("Do you want to order now (Y/N)? ");
+        System.out.print("Bạn có muốn đặt hàng ngay bây giờ (Y/N)? ");
         continueChoice = Validation.checkInputYN();
     } while (continueChoice.equalsIgnoreCase("N"));
 
-    System.out.print("Input your name: ");
+    System.out.print("Nhập tên của bạn: ");
     String customerName = Validation.checkInputString();
 
     orders.put(customerName, shoppingCart);
 
-    System.out.println("Order placed successfully!");
+    System.out.println("Đặt hàng thành công!");
 
     displayMainScreen();
 }
-
 
 
     public void displayMainScreen() {
@@ -172,5 +176,6 @@ public void shopping() {
         }
     }
 }
+
 
 
